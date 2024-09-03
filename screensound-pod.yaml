@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: screensound-pod
+spec:
+  containers:
+    - name: screensound-api
+      image: ricardochies/screensoundapi:latest
