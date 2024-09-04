@@ -9,4 +9,4 @@ spec:
   ports:
     - port: 80
       # targetPort: 80 # Se não for diferente da porta do pod, não precisa ser informado
-      nodePort: 30000
+      nodePort: 30000 # Porta exposta externamente no nó (opcional; Kubernetes pode atribuir automaticamente se não especificado)
