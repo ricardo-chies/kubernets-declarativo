@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: screensound-api
+  labels: 
+    app: screensound-api
+spec:
+  containers:
+    - name: screensound-api-container
+      image: ricardochies/screensoundapi:latest
+      ports:
+        - containerPort: 80
