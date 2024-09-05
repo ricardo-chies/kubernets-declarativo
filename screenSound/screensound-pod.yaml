@@ -10,3 +10,6 @@ spec:
       image: ricardochies/screensoundapi:latest
       ports:
         - containerPort: 80
+      envFrom:
+        - configMapRef:
+            name: configmap-screensound

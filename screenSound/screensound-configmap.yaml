@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: configmap-screensound
+data:
+  CONNECTION_STRING: "server=db;port=3307;database=ScreenSound;user=root;password=123456;Persist Security Info=False"

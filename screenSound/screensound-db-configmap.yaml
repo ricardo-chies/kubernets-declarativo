@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-screensound-db
+data:
+  MYSQL_ROOT_PASSWORD: "123456"  # Senha do usuário root do MySQL (como string)
+  MYSQL_DATABASE: "ScreenSound"  # Nome do banco de dados a ser criado (como string)
