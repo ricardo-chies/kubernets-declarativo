@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-db-screensound
+spec:
+  selector:
+    matchLabels:
+      app: db-screensound
+  template:
+    metadata:
+      name: db-screensound
+      labels:
+        app: db-screensound
+    spec:
+      containers:
+        - name: db-container-screensound
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          envFrom:
+            - configMapRef:
+                name: configmap-db-screensound
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: db-data
+          emptyDir: {}

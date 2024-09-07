@@ -8,4 +8,4 @@ spec:
     - port: 3307
       targetPort: 3306
   selector:
-    app: screensound-db
+    app: db-screensound

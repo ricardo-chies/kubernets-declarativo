@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: deployment-api-screensound
+  labels: 
+    app: api-screensound
+spec:
+  template:
+    metadata:
+        name: api-screensound
+        labels: 
+          app: api-screensound
+    spec:
+      containers:
+        - name: api-container-screensound
+          image: ricardochies/screensoundapi:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: configmap-api-screensound
+          livenessProbe:
+            httpGet:
+              path: /swagger/index.html
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 3
+            initialDelaySeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /swagger/index.html
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 5
+            initialDelaySeconds: 3
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-screensound

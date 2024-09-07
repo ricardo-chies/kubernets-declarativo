@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: screensound-db  # Nome do Pod, deve ser único no namespace
+  name: db-screensound  # Nome do Pod, deve ser único no namespace
   labels:
-    app: screensound-db  # Rótulo usado para identificar o Pod
+    app: db-screensound  # Rótulo usado para identificar o Pod
 spec:
   containers:
-    - name: screensound-db-container  # Nome do contêiner dentro do Pod
+    - name: db-container-screensound  # Nome do contêiner dentro do Pod
       image: mysql:8.0  # Imagem Docker do MySQL a ser usada
       ports:
         - containerPort: 3306  # Porta exposta pelo contêiner para acesso ao MySQL
@@ -14,12 +14,12 @@ spec:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             configMapKeyRef:
-              name: configmap-screensound-db # Nome do ConfigMap
+              name: configmap-db-screensound # Nome do ConfigMap
               key: MYSQL_ROOT_PASSWORD  # Chave no ConfigMap
         - name: MYSQL_DATABASE
           valueFrom:
             configMapKeyRef:
-              name: configmap-screensound-db
+              name: configmap-db-screensound
               key: MYSQL_DATABASE
       volumeMounts:
         - name: db-data  # Nome do volume a ser montado
