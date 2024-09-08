@@ -5,7 +5,7 @@ metadata:
   labels: 
     app: api-screensound
 spec:
-  template:
+  template: # Define o modelo para os pods gerenciados por este Deployment.
     metadata:
         name: api-screensound
         labels: 
@@ -19,21 +19,24 @@ spec:
           envFrom:
             - configMapRef:
                 name: configmap-api-screensound
-          livenessProbe:
+          livenessProbe: # Define a verificação de vivacidade para o contêiner.
             httpGet:
-              path: /swagger/index.html
-              port: 8080
-            periodSeconds: 10
-            failureThreshold: 3
-            initialDelaySeconds: 20
-          readinessProbe:
+              path: /swagger/index.html # Caminho HTTP que será utilizado para verificar se o contêiner está vivo.
+              port: 8080 # Porta na qual a verificação será realizada.
+            periodSeconds: 10 # Intervalo de tempo entre as verificações de vivacidade.
+            failureThreshold: 3 # Número de falhas consecutivas antes de considerar o contêiner como não vivo.
+            initialDelaySeconds: 20 # Tempo de espera antes de realizar a primeira verificação após o contêiner ser iniciado.
+          readinessProbe: # Define a verificação de prontidão para o contêiner.
             httpGet:
-              path: /swagger/index.html
-              port: 8080
-            periodSeconds: 10
-            failureThreshold: 5
-            initialDelaySeconds: 3
-  replicas: 3
+              path: /swagger/index.html # Caminho HTTP que será utilizado para verificar se o contêiner está pronto para receber tráfego.
+              port: 8080 # Porta na qual a verificação será realizada.
+            periodSeconds: 10 # Intervalo de tempo entre as verificações de prontidão.
+            failureThreshold: 5 # Número de falhas consecutivas antes de considerar o contêiner como não pronto.
+            initialDelaySeconds: 3 # Tempo de espera antes de realizar a primeira verificação de prontidão após o contêiner ser iniciado.
+          resources: # Define os requisitos de recursos para o contêiner.
+            requests:
+              cpu: 10m # Solicitação mínima de CPU que o contêiner precisa para ser agendado.
+  replicas: 3 # Define o número de réplicas (pods) que devem ser executadas.
   selector:
     matchLabels:
       app: api-screensound

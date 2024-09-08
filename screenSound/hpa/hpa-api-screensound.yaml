@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-api-screensound
+spec:
+  scaleTargetRef: # Define o alvo do escalonamento, ou seja, o recurso que será escalado automaticamente.
+    apiVersion: apps/v1 # Versão da API do recurso alvo (neste caso, um Deployment).
+    kind: Deployment # Tipo de recurso alvo (neste caso, um Deployment).
+    name: deployment-api-screensound # Nome do Deployment que será escalado.
+  minReplicas: 1 # Número mínimo de réplicas que o HPA deve manter.
+  maxReplicas: 10 # Número máximo de réplicas que o HPA pode criar.
+  metrics: # Define as métricas que o HPA monitorará para decidir quando escalar.
+    - type: Resource # Tipo de métrica baseada em recursos (CPU, memória, etc.).
+      resource:
+        name: cpu # Nome do recurso que será monitorado (neste caso, CPU).
+        target:
+          type: Utilization # Tipo de alvo para o escalonamento (Utilização de CPU, neste caso).
+          averageUtilization: 50 # A média de utilização de CPU alvo (em porcentagem). Se a utilização média de CPU em todas as réplicas ultrapassar 50%, o HPA escalará o número de pods.
