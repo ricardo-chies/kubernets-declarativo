@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-api-screensound
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: api-screensound
+      name: api-screensound
+    spec:
+      containers:
+        - name: api-container-screensound
+          image: ricardochies/screensoundapi:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: configmap-api-screensound
+          volumeMounts:
+            - name: images
+              mountPath: /var/www/html/uploads
+            - name: sessao
+              mountPath: /tmp
+      volumes:
+      - name: images
+        persistentVolumeClaim:
+          claimName: pvc-images
+      - name: sessao
+        persistentVolumeClaim:
+          claimName: pvc-sessao
+  selector:
+    matchLabels:
+      app: api-screensound
+  serviceName: svc-api-screensound
